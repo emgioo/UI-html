@@ -1,3 +1,11 @@
+<?php session_start(); ?>
+
+<?php
+if(!isset($_SESSION['valid'])) {
+	header('Location: login.php');
+}
+?>
+
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -11,6 +19,7 @@
 			<h1>Users List</h1>
 			<div>
 				<a href="register.php" class="btn btn-primary">Register</a>
+				<a href="home.php" class="btn bg-black text-white">Home</a>
 			</div>
 		</div>
 		<table class="table">

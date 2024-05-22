@@ -19,19 +19,32 @@
       $sql = "SELECT * FROM users WHERE email = '$email' AND password = '$password'";
       $result = mysqli_query($conn, $sql);
       $row = mysqli_fetch_assoc($result);
-      if(is_array($row) && !empty($row)){
-        $_SESSION["valid"] = $row["email"];
-        $_SESSION["fname"] = $row["firstName"];
-        $_SESSION["lname"] = $row["lastName"];
-        $_SESSION["age"] = $row["age"];
-        $_SESSION["pnumber"] = $row["phone"];
-        header("Location: register.php");
+      if(is_array($row) && !empty($row)) {
+        $validuser = $row['email'];
+        $_SESSION['valid'] = $validuser;
+        $_SESSION['firstName'] = $row['firstName'];
+        $_SESSION['id'] = $row['id'];
+      } else {
+        echo "Invalid username or password.";
+        echo "<br/>";
+        echo "<a href='login.php'>Go back</a>";
+      }
+  
+      if(isset($_SESSION['valid'])) {
+        header('Location: home.php');			
+      }
+      /*if($row>0){
+        $data = mysqli_fetch_array($result);
+        $Uemail = $data["email"];
+        $_SESSION["email"] = $Uemail;
+        header("Location: usersList.php");
         exit();
       }else{
         echo '<div class="alert alert-danger" role="alert">
                 Error password or email !!
             </div>';
       }
+      */
     }
   ?>
     <h1 class="mb-3 mt-5">Login Form:</h1>
